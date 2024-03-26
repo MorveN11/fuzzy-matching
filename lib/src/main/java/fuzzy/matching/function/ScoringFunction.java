@@ -105,14 +105,14 @@ public interface ScoringFunction extends BiFunction<Match, List<Score>, Score> {
 
       // Apply Exponent if match elements > 1
       if (perfectMatchedElements.size() > 1 && getSumOfWeightedResult(perfectMatchedElements) > 1) {
-        List<Score> notPerfectMachedElements = getNonPerfectMatchedElement(childScores);
+        List<Score> notPerfectMatchedElements = getNonPerfectMatchedElement(childScores);
         double numerator = getExponentiallyIncreasedValue(
             getSumOfWeightedResult(perfectMatchedElements))
-            + getSumOfWeightedResult(notPerfectMachedElements)
+            + getSumOfWeightedResult(notPerfectMatchedElements)
             + getUnmatchedChildScore(match);
 
         double denominator = getExponentiallyIncreasedValue(getSumOfWeights(perfectMatchedElements))
-            + getSumOfWeights(notPerfectMachedElements)
+            + getSumOfWeights(notPerfectMatchedElements)
             + getChildCount(match)
             - childScores.size();
         return new Score(numerator / denominator, match);

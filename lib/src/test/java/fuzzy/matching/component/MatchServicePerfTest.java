@@ -123,8 +123,6 @@ public class MatchServicePerfTest {
         });
   }
 
-  // ... other methods ...
-
   /**
    * Record memory usage.
    *
@@ -146,7 +144,6 @@ public class MatchServicePerfTest {
             e.printStackTrace();
           }
         }
-        ;
         System.out.println("Max memory used (gb): " + mem / 1000000000D);
       });
 

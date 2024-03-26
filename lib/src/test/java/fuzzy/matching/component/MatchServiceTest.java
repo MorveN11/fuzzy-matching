@@ -419,7 +419,7 @@ public class MatchServiceTest {
   }
 
   @Test
-  public void itShouldApplyMatchForMulitipleEmptyField() {
+  public void itShouldApplyMatchForMultipleEmptyField() {
     List<Document> inputData = new ArrayList<>();
     inputData.add(new Document.Builder("1")
         .addElement(new Element.Builder().setType(NAME).setValue("James Parker").createElement())
