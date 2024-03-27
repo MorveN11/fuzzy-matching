@@ -4,6 +4,7 @@ import static fuzzy.matching.domain.ElementType.ADDRESS;
 import static fuzzy.matching.domain.ElementType.EMAIL;
 import static fuzzy.matching.domain.ElementType.NAME;
 import static fuzzy.matching.domain.ElementType.NUMBER;
+import static fuzzy.matching.domain.ElementType.PATH;
 import static fuzzy.matching.domain.ElementType.PHONE;
 import static fuzzy.matching.domain.ElementType.TEXT;
 import static fuzzy.matching.function.TokenizerFunction.triGramTokenizer;
@@ -152,4 +153,39 @@ public class TokenizerFunctionTest {
     assertEquals("123", customResults.get(0).getValue());
   }
 
+  @Test
+  public void itShouldGetPathTokenizer_Success() {
+    String value = "path/to/file.txt";
+    Element elem = new Element.Builder().setType(PATH).setValue(value).createElement();
+    Stream<Token> resultStream = TokenizerFunction.pathTokenizer().apply(elem);
+    List<Token> results = resultStream.collect(Collectors.toList());
+    System.out.println(results);
+    assertEquals(3, results.size());
+    assertEquals("path", results.get(0).getValue());
+    assertEquals("to", results.get(1).getValue());
+    assertEquals("file", results.get(2).getValue());
+  }
+
+  @Test
+  public void itShouldGetPathTokenizerForSingleWord_Success() {
+    String value = "path";
+    Element elem = new Element.Builder().setType(PATH).setValue(value).createElement();
+    Stream<Token> resultStream = TokenizerFunction.pathTokenizer().apply(elem);
+    List<Token> results = resultStream.collect(Collectors.toList());
+    assertEquals(1, results.size());
+    assertEquals("path", results.get(0).getValue());
+  }
+
+  @Test
+  public void itShouldGetPathTokenizerForPathWithSpaces_Success() {
+    String value = "path/ with / spaces/ file.txt";
+    Element elem = new Element.Builder().setType(PATH).setValue(value).createElement();
+    Stream<Token> resultStream = TokenizerFunction.pathTokenizer().apply(elem);
+    List<Token> results = resultStream.collect(Collectors.toList());
+    assertEquals(4, results.size());
+    assertEquals("path", results.get(0).getValue());
+    assertEquals("with", results.get(1).getValue());
+    assertEquals("spaces", results.get(2).getValue());
+    assertEquals("file", results.get(3).getValue());
+  }
 }

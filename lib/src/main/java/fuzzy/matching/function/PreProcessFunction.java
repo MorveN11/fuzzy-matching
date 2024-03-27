@@ -42,6 +42,24 @@ public class PreProcessFunction<T> {
   }
 
   /**
+   * Removes all special characters in a path and also removes the file extension.
+   *
+   * @return the function to perform pathPreprocessing.
+   */
+  public static Function<String, String> pathPreprocessing() {
+    return (str) -> {
+      if (str == null) {
+        return "";
+      }
+      str = str.replaceAll("[^A-Za-z0-9/.]", "");
+      if (str.contains(".")) {
+        str = str.substring(0, str.lastIndexOf('.'));
+      }
+      return str;
+    };
+  }
+
+  /**
    * removes special characters in a string.
    *
    * @return the function to perform removeSpecialChars

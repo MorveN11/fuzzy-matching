@@ -21,6 +21,11 @@ public class TokenizerFunction {
     return (element -> Stream.of(new Token(element.getPreProcessedValue(), element)));
   }
 
+  public static Function<Element<String>, Stream<Token<String>>> pathTokenizer() {
+    return (element) -> Arrays.stream(element.getPreProcessedValue().split("/"))
+        .map(token -> new Token<String>(token, element));
+  }
+
   public static Function<Element<String>, Stream<Token<String>>> wordTokenizer() {
     return (element) -> Arrays.stream(element.getPreProcessedValue().split("\\s+"))
         .map(token -> new Token<String>(token, element));
