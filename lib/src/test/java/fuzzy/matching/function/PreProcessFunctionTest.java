@@ -110,4 +110,11 @@ public class PreProcessFunctionTest {
     Date result = (Date) PreProcessFunction.none().apply(input);
     assertEquals(input, result);
   }
+
+  @Test
+  public void itShouldPreprocessPath() {
+    String value = "/$home/$user/#files/file.txt";
+    String result = (String) PreProcessFunction.pathPreprocessing().apply(value);
+    assertEquals("/home/user/files/file", result);
+  }
 }

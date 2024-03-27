@@ -6,10 +6,12 @@ import static fuzzy.matching.function.PreProcessFunction.addressPreprocessing;
 import static fuzzy.matching.function.PreProcessFunction.namePreprocessing;
 import static fuzzy.matching.function.PreProcessFunction.none;
 import static fuzzy.matching.function.PreProcessFunction.numberPreprocessing;
+import static fuzzy.matching.function.PreProcessFunction.pathPreprocessing;
 import static fuzzy.matching.function.PreProcessFunction.removeDomain;
 import static fuzzy.matching.function.PreProcessFunction.removeSpecialChars;
 import static fuzzy.matching.function.PreProcessFunction.usPhoneNormalization;
 import static fuzzy.matching.function.TokenizerFunction.decaGramTokenizer;
+import static fuzzy.matching.function.TokenizerFunction.pathTokenizer;
 import static fuzzy.matching.function.TokenizerFunction.triGramTokenizer;
 import static fuzzy.matching.function.TokenizerFunction.valueTokenizer;
 import static fuzzy.matching.function.TokenizerFunction.wordSoundexEncodeTokenizer;
@@ -33,10 +35,13 @@ public enum ElementType {
   PHONE,
   NUMBER,
   DATE,
-  AGE;
+  AGE,
+  PATH;
 
   protected Function getPreProcessFunction() {
     switch (this) {
+      case PATH:
+        return pathPreprocessing();
       case NAME:
         return namePreprocessing();
       case TEXT:
@@ -57,6 +62,8 @@ public enum ElementType {
 
   protected Function getTokenizerFunction() {
     switch (this) {
+      case PATH:
+        return pathTokenizer();
       case NAME:
         return wordSoundexEncodeTokenizer();
       case TEXT:

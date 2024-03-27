@@ -955,4 +955,47 @@ public class MatchServiceTest {
     }).collect(Collectors.toList());
   }
 
+  @Test
+  public void itShouldApplyMatchForMultiplePaths() {
+    List<Document> inputData = new ArrayList<>();
+    inputData.add(new Document.Builder("1")
+        .addElement(new Element.Builder().setType(ElementType.PATH)
+            .setValue("/usr/local/bin").createElement())
+        .addElement(new Element.Builder().setType(ElementType.PATH)
+            .setValue("/usr/bin").createElement())
+        .createDocument());
+    inputData.add(new Document.Builder("2")
+        .addElement(new Element.Builder().setType(ElementType.PATH)
+            .setValue("/usr/local/share").createElement())
+        .addElement(new Element.Builder().setType(ElementType.PATH)
+            .setValue("/usr/bin").createElement())
+        .createDocument());
+    Map<Document, List<Match<Document>>> result = matchService.applyMatch(inputData);
+    assertEquals(2, result.size());
+    assertThat(result.entrySet().stream()
+        .map(entry -> entry.getKey().getKey()).collect(Collectors.toList()),
+        CoreMatchers.hasItems("1", "2"));
+  }
+
+  @Test
+  public void itShouldApplyMatchForSimilarPaths() {
+    List<Document> inputData = new ArrayList<>();
+    inputData.add(new Document.Builder("1")
+        .addElement(new Element.Builder().setType(ElementType.PATH)
+            .setValue("/usr/local/bin").createElement())
+        .addElement(new Element.Builder().setType(ElementType.PATH)
+            .setValue("/usr/bin").createElement())
+        .createDocument());
+    inputData.add(new Document.Builder("2")
+        .addElement(new Element.Builder().setType(ElementType.PATH)
+            .setValue("/usr/local/binn").createElement())
+        .addElement(new Element.Builder().setType(ElementType.PATH)
+            .setValue("/usr/bin").createElement())
+        .createDocument());
+    Map<Document, List<Match<Document>>> result = matchService.applyMatch(inputData);
+    assertEquals(2, result.size());
+    assertThat(result.entrySet().stream()
+        .map(entry -> entry.getKey().getKey()).collect(Collectors.toList()),
+        CoreMatchers.hasItems("1", "2"));
+  }
 }
