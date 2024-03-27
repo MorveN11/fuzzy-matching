@@ -32,3 +32,16 @@
   3. fuzzy.matching.component.MatchServiceTest:
     - Add new test: itShouldApplyMatchForMultiplePaths()
     - Add new test: itShouldApplyMatchForSimilarPaths()
+
+
+## Victor Leon Villca Silva Work
+- Review Fuzzy Matcher Documentation.
+- Review decaGramTokenizer function as Phone Tokenizer
+- Test Path Tokenizer ->
+  1. Test case implementation: testDecaGramTokenizer_EmptyNumber()
+  2. Test case implementation: testDecaGramTokenizer_SingleNumber()
+  3. Test case implementation: testDecaGramTokenizer_MultipleNumberDigits()
+  4. Test case implementation: testDecaGramTokenizer_MultipleLongNumber()
+  5. Test case implementation: testDecaGramTokenizer_MultipleLongNumber2()
+  6. Test case implementation: testDecaGramTokenizer_AlphabetElement()
+  7. Test case implementation: testDecaGramTokenizer_AlphaNumericElement()
