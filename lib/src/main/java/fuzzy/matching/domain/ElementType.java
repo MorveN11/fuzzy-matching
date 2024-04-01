@@ -2,20 +2,14 @@ package fuzzy.matching.domain;
 
 import static fuzzy.matching.domain.MatchType.EQUALITY;
 import static fuzzy.matching.domain.MatchType.NEAREST_NEIGHBORS;
-import static fuzzy.matching.function.PreProcessFunction.addressPreprocessing;
-import static fuzzy.matching.function.PreProcessFunction.namePreprocessing;
-import static fuzzy.matching.function.PreProcessFunction.none;
-import static fuzzy.matching.function.PreProcessFunction.numberPreprocessing;
-import static fuzzy.matching.function.PreProcessFunction.pathPreprocessing;
-import static fuzzy.matching.function.PreProcessFunction.removeDomain;
-import static fuzzy.matching.function.PreProcessFunction.removeSpecialChars;
-import static fuzzy.matching.function.PreProcessFunction.usPhoneNormalization;
+import static fuzzy.matching.function.PreProcessFunction.*;
 import static fuzzy.matching.function.TokenizerFunction.decaGramTokenizer;
 import static fuzzy.matching.function.TokenizerFunction.pathTokenizer;
 import static fuzzy.matching.function.TokenizerFunction.triGramTokenizer;
 import static fuzzy.matching.function.TokenizerFunction.valueTokenizer;
 import static fuzzy.matching.function.TokenizerFunction.wordSoundexEncodeTokenizer;
 import static fuzzy.matching.function.TokenizerFunction.wordTokenizer;
+import static fuzzy.matching.function.TokenizerFunction.idTokenizer;
 
 import java.util.function.Function;
 
@@ -36,10 +30,13 @@ public enum ElementType {
   NUMBER,
   DATE,
   AGE,
-  PATH;
+  PATH,
+  ID;
 
   protected Function getPreProcessFunction() {
     switch (this) {
+        case ID:
+            return idPreProcessing();
       case PATH:
         return pathPreprocessing();
       case NAME:
@@ -62,6 +59,8 @@ public enum ElementType {
 
   protected Function getTokenizerFunction() {
     switch (this) {
+        case ID:
+            return idTokenizer();
       case PATH:
         return pathTokenizer();
       case NAME:

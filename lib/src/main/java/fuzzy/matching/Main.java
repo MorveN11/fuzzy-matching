@@ -8,10 +8,9 @@ public class Main {
         User user1 = new User("1", "Alice", 25, "Female");
         User user2 = new User("2", "Bob", 30, "Male");
 
+
         UserComparator comparator = new UserComparator();
-        System.out.println(comparator.calculateAgeSimilarity(String.valueOf(user1.getAge()), String.valueOf(user2.getAge())));
-//        double similarity = comparator.compareUser(user1, user2);
-//
-//        System.out.println("Similarity between " + user1.getName() + " and " + user2.getName() + ": " + similarity);
+        double similarity = comparator.compareUser(user1, user2);
+        System.out.println("Similarity between " + user1.getName() + " and " + user2.getName() + ": " + similarity);
     }
 }

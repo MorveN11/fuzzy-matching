@@ -26,6 +26,11 @@ public class TokenizerFunction {
         .map(token -> new Token<String>(token, element));
   }
 
+  public static Function<Element<String>, Stream<Token<String>>> idTokenizer() {
+      return (element) -> Arrays.stream(element.getPreProcessedValue().split(" "))
+              .map(token -> new Token<String>(token, element));
+  }
+
   public static Function<Element<String>, Stream<Token<String>>> wordTokenizer() {
     return (element) -> Arrays.stream(element.getPreProcessedValue().split("\\s+"))
         .map(token -> new Token<String>(token, element));

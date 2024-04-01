@@ -2,6 +2,9 @@ package fuzzy.matching.function;
 
 import fuzzy.matching.component.Dictionary;
 import fuzzy.matching.util.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -58,6 +61,19 @@ public class PreProcessFunction<T> {
       return str;
     };
   }
+
+    /**
+     * Removes specical characters in the id, and separeates the numeric value with the department of origin
+     *
+     * @return the function performing the preprocessing
+     *
+     */
+    public static Function<String, String> idPreProcessing() {
+        return (str) -> {
+            String cleanedInput = str.replaceAll("[^A-Za-z0-9\\s]", "");
+            return cleanedInput.trim();
+        };
+    }
 
   /**
    * removes special characters in a string.
