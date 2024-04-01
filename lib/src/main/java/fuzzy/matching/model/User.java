@@ -3,13 +3,13 @@ package fuzzy.matching.model;
 import java.util.List;
 
 public class User {
-    private int id;
+    private String id;
     private String name;
     private int age;
     private String gender;
     private List<Book> bookList;
 
-    public User(int id, String name, int age, String gender, List<Book> bookList) {
+    public User(String id, String name, int age, String gender, List<Book> bookList) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -17,11 +17,18 @@ public class User {
         this.bookList = bookList;
     }
 
-    public int getId() {
+    public User(String id, String name, int age, String gender) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
