@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
-class SimilarTest {
+class aSimilarTest {
 
   @Test
   void itShouldTestSimilar1() {
