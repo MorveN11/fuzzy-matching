@@ -62,6 +62,14 @@ public class TokenizerFunction {
     public static Function<Element<String>, Stream<Token<String>>> idTokenizer() {
         return (element) -> getNnGramTokens(4, element);
     }
+  public static Function<Element<String>, Stream<Token<String>>> priceTokenizer() {
+    return (element) -> {
+      String price = element.getValue();
+      int numericCount = price.replaceAll("[^0-9]", "").length();
+      return getNnGramTokens(numericCount, element);
+    };
+  }
+
 
 
   /**

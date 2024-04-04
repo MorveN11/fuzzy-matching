@@ -10,14 +10,14 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class IDMatchTypeTest {
+public class PriceMatchTypeTest {
     @Test
     public void testExactMatch() {
         MatchService matchService = new MatchService();
         Document doc1 = new Document.Builder("doc1")
                 .addElement(new Element.Builder<String>()
                         .setType(ElementType.ID)
-                        .setValue("1234SDF13212356")
+                        .setValue("100 BOL")
                         .setMatchType(MatchType.EQUALITY_DISTANCE)
                         .createElement())
                 .createDocument();
@@ -25,7 +25,7 @@ public class IDMatchTypeTest {
         Document doc2 = new Document.Builder("doc2")
                 .addElement(new Element.Builder<String>()
                         .setType(ElementType.ID)
-                        .setValue("1234SDF13212356")
+                        .setValue("100 BOL")
                         .setMatchType(MatchType.EQUALITY_DISTANCE)
                         .createElement())
                 .createDocument();
@@ -55,16 +55,16 @@ public class IDMatchTypeTest {
         MatchService matchService = new MatchService();
         Document doc1 = new Document.Builder("doc1")
                 .addElement(new Element.Builder<String>()
-                        .setType(ElementType.ID)
-                        .setValue("1234SDF13212356")
+                        .setType(ElementType.PRICE)
+                        .setValue("500 USD")
                         .setMatchType(MatchType.EQUALITY_DISTANCE)
                         .createElement())
                 .createDocument();
 
         Document doc2 = new Document.Builder("doc2")
                 .addElement(new Element.Builder<String>()
-                        .setType(ElementType.ID)
-                        .setValue("121234SDF13212356ASD3457")
+                        .setType(ElementType.PRICE)
+                        .setValue("500 JPN")
                         .setMatchType(MatchType.EQUALITY_DISTANCE)
                         .createElement())
                 .createDocument();
@@ -80,7 +80,7 @@ public class IDMatchTypeTest {
         for (List<Match<Document>> matchList : matches.values()) {
             for (Match<Document> match : matchList) {
                 if (match.getData().getKey().equals("doc1") && match.getMatchedWith().getKey().equals("doc2")) {
-                    assertEquals(0.65, match.getScore().getResult(), 0.0);
+                    assertEquals(0.6, match.getScore().getResult(), 0.0);
                     matched = true;
                     break;
                 }
@@ -94,16 +94,16 @@ public class IDMatchTypeTest {
         MatchService matchService = new MatchService();
         Document doc1 = new Document.Builder("doc1")
                 .addElement(new Element.Builder<String>()
-                        .setType(ElementType.ID)
-                        .setValue("123456")
+                        .setType(ElementType.PRICE)
+                        .setValue("890 JPN")
                         .setMatchType(MatchType.EQUALITY_DISTANCE)
                         .createElement())
                 .createDocument();
 
         Document doc2 = new Document.Builder("doc2")
                 .addElement(new Element.Builder<String>()
-                        .setType(ElementType.ID)
-                        .setValue("abcdef")
+                        .setType(ElementType.PRICE)
+                        .setValue("132 BOL")
                         .setMatchType(MatchType.EQUALITY_DISTANCE)
                         .createElement())
                 .createDocument();

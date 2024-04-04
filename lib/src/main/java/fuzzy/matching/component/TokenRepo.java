@@ -69,7 +69,7 @@ public class TokenRepo {
 
     private final Double agePctOf = 10D;
     private final Double datePctOf = 15777e7D; // 5 years of range
-    private final Integer MAX_EDIT = 2;
+    private final Integer MAX_EDIT = 1;
 
     Repo(MatchType matchType) {
       this.matchType = matchType;
