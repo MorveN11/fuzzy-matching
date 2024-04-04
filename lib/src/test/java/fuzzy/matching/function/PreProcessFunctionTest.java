@@ -120,11 +120,10 @@ public class PreProcessFunctionTest {
     assertEquals("/home/user/files/file", result);
   }
 
-
-    @Test
-    public void stringListPreProcessingShouldJoinListWithSpaces() {
-        List<String> value = Arrays.asList("Hello", "World");
-        String result = PreProcessFunction.stringListPreProcessing().apply(value);
-        assertEquals("Hello World", result);
-    }
+  @Test
+  public void stringListPreProcessingShouldJoinListWithSpaces() {
+    List<String> value = Arrays.asList("Hello", "World");
+    String result = PreProcessFunction.stringListPreProcessing().apply(value);
+    assertEquals("Hello World", result);
+  }
 }
