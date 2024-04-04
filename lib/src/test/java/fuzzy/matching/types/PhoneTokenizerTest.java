@@ -1,4 +1,4 @@
-package fuzzy.matching.phone;
+package fuzzy.matching.types;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

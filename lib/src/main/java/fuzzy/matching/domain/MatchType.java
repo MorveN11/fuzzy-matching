@@ -7,5 +7,4 @@ public enum MatchType {
   EQUALITY,
   EQUALITY_DISTANCE,
   NEAREST_NEIGHBORS
-
 }

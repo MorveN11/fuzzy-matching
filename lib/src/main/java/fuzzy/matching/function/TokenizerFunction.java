@@ -59,9 +59,16 @@ public class TokenizerFunction {
   public static Function<Element<String>, Stream<Token<String>>> decaGramTokenizer() {
     return (element) -> getNnGramTokens(10, element);
   }
-    public static Function<Element<String>, Stream<Token<String>>> idTokenizer() {
-        return (element) -> getNnGramTokens(4, element);
-    }
+
+  public static Function<Element<String>, Stream<Token<String>>> idTokenizer() {
+    return (element) -> getNnGramTokens(4, element);
+  }
+
+  /**
+   * Tokenizes the element value into n-grams.
+   *
+   * @return Function to tokenize the element value into n-grams
+   */
   public static Function<Element<String>, Stream<Token<String>>> priceTokenizer() {
     return (element) -> {
       String price = element.getValue();
@@ -69,8 +76,6 @@ public class TokenizerFunction {
       return getNnGramTokens(numericCount, element);
     };
   }
-
-
 
   /**
    * Tokenizes the element value into n-grams.

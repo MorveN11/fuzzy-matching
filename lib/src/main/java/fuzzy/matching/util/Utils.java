@@ -61,6 +61,14 @@ public class Utils {
   public static boolean isNumeric(String str) {
     return str.matches(".*\\d.*");
   }
+
+  /**
+   * utility method to calculate the edit distance between two strings.
+   *
+   * @param s1 A String of the first string
+   * @param s2 A String of the second string
+   * @return An integer of the edit distance between the two strings
+   */
   public static int editDistance(String s1, String s2) {
     int m = s1.length();
     int n = s2.length();
