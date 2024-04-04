@@ -161,6 +161,14 @@ public class PreProcessFunction<T> {
     };
   }
 
+  public static Function<String, String> idTypePreProcessing() {
+    return (str) -> removeSpecialChars().apply(str);
+  }
+
+  public static Function<String, String> pricePreProcessing() {
+    return (str) -> removeSpecialChars().apply(str).toLowerCase();
+  }
+
   /**
    * Does nothing, used for already preprocessed values.
    *

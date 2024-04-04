@@ -1,5 +1,7 @@
 package fuzzy.matching.component;
 
+import static fuzzy.matching.util.Utils.editDistance;
+
 import fuzzy.matching.domain.Element;
 import fuzzy.matching.domain.ElementClassification;
 import fuzzy.matching.domain.MatchType;
@@ -63,9 +65,11 @@ public class TokenRepo {
     Map<Object, Set<Element>> tokenElementSet;
 
     TreeSet<Object> tokenBinaryTree;
+    int maxEditDistance;
 
-    private final Double agePctOf = 10D;
-    private final Double datePctOf = 15777e7D; // 5 years of range
+    private static final Double AGE_PCT_OF = 10D;
+    private static final Double DATE_PCT_OF = 15777e7D; // 5 years of range
+    private static final Integer MAX_EDIT = 1;
 
     Repo(MatchType matchType) {
       this.matchType = matchType;
@@ -75,6 +79,10 @@ public class TokenRepo {
       }
       if (MatchType.EQUALITY.equals(matchType)) {
         tokenElementSet = new ConcurrentHashMap<>();
+      }
+      if (MatchType.EQUALITY_DISTANCE.equals(matchType)) {
+        tokenElementSet = new ConcurrentHashMap<>();
+        maxEditDistance = MAX_EDIT;
       }
     }
 
@@ -86,7 +94,7 @@ public class TokenRepo {
         tokenElementSet.put(token.getValue(), elements);
       }
 
-      if (MatchType.EQUALITY.equals(matchType)) {
+      if (MatchType.EQUALITY.equals(matchType) || MatchType.EQUALITY_DISTANCE.equals(matchType)) {
         Set<Element> elements = tokenElementSet.getOrDefault(token.getValue(), new HashSet<>());
         elements.add(element);
         tokenElementSet.put(token.getValue(), elements);
@@ -97,16 +105,26 @@ public class TokenRepo {
       switch (matchType) {
         case EQUALITY:
           return tokenElementSet.get(token.getValue());
+        case EQUALITY_DISTANCE:
+          Set<Element> matchingElements = new HashSet<>();
+          for (Map.Entry<Object, Set<Element>> entry : tokenElementSet.entrySet()) {
+            Object storedToken = entry.getKey();
+            int distance = editDistance(token.getValue().toString(), storedToken.toString());
+            if (distance <= maxEditDistance) {
+              matchingElements.addAll(entry.getValue());
+            }
+          }
+          return matchingElements;
         case NEAREST_NEIGHBORS:
           TokenRange tokenRange;
           switch (token.getElement().getElementClassification().getElementType()) {
             case AGE:
               tokenRange = new TokenRange(
-                  token, token.getElement().getNeighborhoodRange(), agePctOf);
+                  token, token.getElement().getNeighborhoodRange(), AGE_PCT_OF);
               break;
             case DATE:
               tokenRange = new TokenRange(
-                  token, token.getElement().getNeighborhoodRange(), datePctOf);
+                  token, token.getElement().getNeighborhoodRange(), DATE_PCT_OF);
               break;
             default:
               tokenRange = new TokenRange(token, token.getElement().getNeighborhoodRange());

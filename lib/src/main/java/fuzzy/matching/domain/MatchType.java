@@ -5,5 +5,6 @@ package fuzzy.matching.domain;
  */
 public enum MatchType {
   EQUALITY,
+  EQUALITY_DISTANCE,
   NEAREST_NEIGHBORS
 }
