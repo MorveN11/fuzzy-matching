@@ -31,9 +31,7 @@ public class JsonReader<T> {
             Gson gson = new Gson();
             Type listType = TypeToken.getParameterized(List.class, clazz).getType();
             items = gson.fromJson(reader, listType);
-            for (T item : items) {
-                System.out.println(item);
-            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

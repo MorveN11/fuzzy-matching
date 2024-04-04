@@ -8,7 +8,7 @@ import java.util.List;
  * Represents a user.
  */
 public class User {
-    
+
     @SerializedName("ID")
     private String id;
 
@@ -26,6 +26,9 @@ public class User {
     @SerializedName("BookList")
     private List<String> idBookList;
 
+    @SerializedName("FavoriteGenres")
+    private List<String> favoriteGenres;
+
     /**
      * Constructs a new User object with the specified id, name, age, gender, and book list.
      *
@@ -35,7 +38,7 @@ public class User {
      * @param gender   the user's gender
      * @param bookList the user's book list
      */
-    public User(String id, String name, int age, String gender, ArrayList<Book> bookList) {
+    public User(String id, String name, int age, String gender, ArrayList<Book> bookList, ArrayList<String> favoriteGenres) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -43,6 +46,7 @@ public class User {
         this.bookList = bookList;
         idBookList = new ArrayList<>();
         bookList = new ArrayList<>();
+        this.favoriteGenres = favoriteGenres;
     }
 
     /**
@@ -164,4 +168,23 @@ public class User {
         }
         bookList.add(book);
     }
+
+    /**
+     * Returns the user's favorite genres.
+     *
+     * @return the user's favorite genres
+     */
+    public List<String> getFavoriteGenres() {
+        return favoriteGenres;
+    }
+
+    /**
+     * Sets the user's favorite genres.
+     *
+     * @param favoriteGenres the user's favorite genres
+     */
+    public void setFavoriteGenres(ArrayList<String> favoriteGenres) {
+        this.favoriteGenres = favoriteGenres;
+    }
+
 }

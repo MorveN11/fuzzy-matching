@@ -2,6 +2,9 @@ package fuzzy.matching.function;
 
 import fuzzy.matching.component.Dictionary;
 import fuzzy.matching.util.Utils;
+
+import java.util.List;
+import java.util.StringJoiner;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -177,4 +180,19 @@ public class PreProcessFunction<T> {
   public static Function none() {
     return obj -> obj;
   }
+
+  /**
+   * Returns a function that joins a list of strings into a single string with spaces between each element.
+   *
+   * @return a Function that joins a list of strings
+   */
+  public static Function<List<String>, String> stringListPreProcessing() {
+      return (list) -> {
+          StringJoiner joiner = new StringJoiner(" ");
+          for (String str : list) {
+              joiner.add(str);
+          }
+          return joiner.toString();
+        };
+    }
 }
