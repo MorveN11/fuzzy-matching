@@ -1,6 +1,5 @@
 plugins {
   `java-library`
-    "io.freefair.lombok"
 }
 
 java {
