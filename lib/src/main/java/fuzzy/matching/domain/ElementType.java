@@ -1,7 +1,9 @@
 package fuzzy.matching.domain;
 
 import static fuzzy.matching.domain.MatchType.EQUALITY;
+import static fuzzy.matching.domain.MatchType.EQUALITY_DISTANCE;
 import static fuzzy.matching.domain.MatchType.NEAREST_NEIGHBORS;
+import static fuzzy.matching.function.PreProcessFunction.idTypePreProcessing;
 import static fuzzy.matching.function.PreProcessFunction.addressPreprocessing;
 import static fuzzy.matching.function.PreProcessFunction.namePreprocessing;
 import static fuzzy.matching.function.PreProcessFunction.none;
@@ -16,6 +18,7 @@ import static fuzzy.matching.function.TokenizerFunction.triGramTokenizer;
 import static fuzzy.matching.function.TokenizerFunction.valueTokenizer;
 import static fuzzy.matching.function.TokenizerFunction.wordSoundexEncodeTokenizer;
 import static fuzzy.matching.function.TokenizerFunction.wordTokenizer;
+import static fuzzy.matching.function.TokenizerFunction.idTokenizer;
 
 import java.util.function.Function;
 
@@ -36,7 +39,10 @@ public enum ElementType {
   NUMBER,
   DATE,
   AGE,
-  PATH;
+  PATH,
+  ID,
+
+  ;
 
   protected Function getPreProcessFunction() {
     switch (this) {
@@ -55,6 +61,8 @@ public enum ElementType {
       case NUMBER:
       case AGE:
         return numberPreprocessing();
+      case ID:
+        return idTypePreProcessing();
       default:
         return none();
     }
@@ -74,6 +82,8 @@ public enum ElementType {
         return triGramTokenizer();
       case PHONE:
         return decaGramTokenizer();
+      case ID:
+        return idTokenizer();
       default:
         return valueTokenizer();
     }
@@ -85,6 +95,8 @@ public enum ElementType {
       case DATE:
       case AGE:
         return NEAREST_NEIGHBORS;
+      case ID:
+        return EQUALITY_DISTANCE;
       default:
         return EQUALITY;
     }

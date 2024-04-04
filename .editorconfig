@@ -4,6 +4,6 @@ root = true
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
-ident_size = 2
+ident_size = 1
 ident_style = space
 charset = utf-8

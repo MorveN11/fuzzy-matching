@@ -59,6 +59,10 @@ public class TokenizerFunction {
   public static Function<Element<String>, Stream<Token<String>>> decaGramTokenizer() {
     return (element) -> getNnGramTokens(10, element);
   }
+    public static Function<Element<String>, Stream<Token<String>>> idTokenizer() {
+        return (element) -> getNnGramTokens(4, element);
+    }
+
 
   /**
    * Tokenizes the element value into n-grams.
