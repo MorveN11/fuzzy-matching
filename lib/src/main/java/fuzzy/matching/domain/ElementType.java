@@ -12,6 +12,7 @@ import static fuzzy.matching.function.PreProcessFunction.pathPreprocessing;
 import static fuzzy.matching.function.PreProcessFunction.pricePreProcessing;
 import static fuzzy.matching.function.PreProcessFunction.removeDomain;
 import static fuzzy.matching.function.PreProcessFunction.removeSpecialChars;
+import static fuzzy.matching.function.PreProcessFunction.stringListPreProcessing;
 import static fuzzy.matching.function.PreProcessFunction.usPhoneNormalization;
 import static fuzzy.matching.function.TokenizerFunction.decaGramTokenizer;
 import static fuzzy.matching.function.TokenizerFunction.idTokenizer;
@@ -43,7 +44,8 @@ public enum ElementType {
   AGE,
   PATH,
   ID,
-  PRICE;
+  PRICE,
+  GENRE;
 
   protected Function getPreProcessFunction() {
     switch (this) {
@@ -66,6 +68,8 @@ public enum ElementType {
         return idTypePreProcessing();
       case PRICE:
         return pricePreProcessing();
+      case GENRE:
+        return stringListPreProcessing();
       default:
         return none();
     }
@@ -89,6 +93,8 @@ public enum ElementType {
         return idTokenizer();
       case PRICE:
         return priceTokenizer();
+      case GENRE:
+        return wordTokenizer();
       default:
         return valueTokenizer();
     }

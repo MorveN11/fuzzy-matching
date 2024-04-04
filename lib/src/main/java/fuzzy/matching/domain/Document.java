@@ -28,7 +28,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 @SuppressWarnings("rawtypes")
 public class Document implements Matchable {
-  private Document(String key, Set<Element> elements, double threshold) {
+  protected Document(String key, Set<Element> elements, double threshold) {
     this.key = key;
     this.elements = elements;
     this.threshold = threshold;
@@ -141,9 +141,9 @@ public class Document implements Matchable {
    * </p>
    */
   public static class Builder {
-    private String key;
-    private Set<Element> elements;
-    private double threshold = 0.5;
+    protected String key;
+    protected Set<Element> elements;
+    protected double threshold = 0.5;
 
     public Builder(String key) {
       this.key = key;
