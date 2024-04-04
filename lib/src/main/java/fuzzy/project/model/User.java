@@ -1,6 +1,7 @@
 package fuzzy.project.model;
 
 import static fuzzy.matching.domain.ElementType.AGE;
+import static fuzzy.matching.domain.ElementType.GENRE;
 import static fuzzy.matching.domain.ElementType.NAME;
 import static fuzzy.matching.domain.ElementType.NUMBER;
 import static fuzzy.matching.domain.ElementType.TEXT;
@@ -8,7 +9,7 @@ import static fuzzy.matching.domain.ElementType.TEXT;
 import com.google.gson.annotations.SerializedName;
 import fuzzy.matching.domain.Document;
 import fuzzy.matching.domain.Element;
-import fuzzy.project.doc.UserDocument;
+import fuzzy.project.domain.UserDocument;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +49,8 @@ public class User implements Comparable<User> {
    * @param gender   the user's gender
    * @param bookList the user's book list
    */
-  public User(String id, String name, int age, String gender, List<Book> bookList, List<String> favoriteGenres) {
+  public User(String id, String name, int age, String gender,
+      List<Book> bookList, List<String> favoriteGenres) {
     this.id = id;
     this.name = name;
     this.age = age;
@@ -209,9 +211,30 @@ public class User implements Comparable<User> {
         .setName(this.name)
         .setAge(this.age)
         .setGender(gender)
+        .setFavoriteGenres(favoriteGenres)
         .addElement(new Element.Builder().setType(NAME).setValue(this.name).createElement())
         .addElement(new Element.Builder().setType(AGE).setValue(this.age).createElement())
         .addElement(new Element.Builder().setType(TEXT).setValue(this.gender).createElement())
+        .addElement(new Element.Builder().setType(NUMBER).setValue(this.idBookList.size())
+            .createElement())
+        .createUserDocument();
+  }
+
+  /**
+   * Converts the User to a Document for recommendations.
+   *
+   * @return Document
+   */
+  public Document toUserRecommendations() {
+    return new UserDocument.Builder(this.id)
+        .setBooks(this.bookList)
+        .setIdBooks(this.idBookList)
+        .setName(this.name)
+        .setAge(this.age)
+        .setGender(gender)
+        .setFavoriteGenres(favoriteGenres)
+        .addElement(new Element.Builder().setType(GENRE)
+            .setValue(this.favoriteGenres).createElement())
         .addElement(new Element.Builder().setType(NUMBER).setValue(this.idBookList.size())
             .createElement())
         .createUserDocument();
@@ -243,7 +266,8 @@ public class User implements Comparable<User> {
       String gender = document.getGender();
       List<String> idBookList = document.getIdBooks();
       List<Book> bookList = document.getBooks();
-      User user = new User(id, name, age, gender, bookList);
+      List<String> favoriteGenres = document.getFavoriteGenres();
+      User user = new User(id, name, age, gender, bookList, favoriteGenres);
       user.setBookListIds(idBookList);
 
       return user;
@@ -278,7 +302,9 @@ public class User implements Comparable<User> {
         Name: %s
         Age: %s
         Gender: %s
+        FavoriteGenres: %s
         BooksId: %s
-        """.formatted(this.id, this.name, this.age, this.gender, this.idBookList);
+        """.formatted(this.id, this.name, this.age, this.gender,
+        this.favoriteGenres, this.idBookList);
   }
 }

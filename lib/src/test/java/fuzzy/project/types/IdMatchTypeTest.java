@@ -1,4 +1,4 @@
-package fuzzy.matching.types;
+package fuzzy.project.types;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

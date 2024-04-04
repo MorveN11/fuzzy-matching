@@ -1,4 +1,4 @@
-package fuzzy.project.doc;
+package fuzzy.project.domain;
 
 import fuzzy.matching.domain.Document;
 import fuzzy.matching.domain.Element;
@@ -14,18 +14,20 @@ public class UserDocument extends Document {
 
   private final List<String> idBooks;
   private final List<Book> books;
+  private final List<String> favoriteGenres;
   private final String name;
   private final int age;
   private final String gender;
 
   private UserDocument(String key, Set<Element> elements, double threshold, List<String> idBooks,
-      List<Book> books, String name, int age, String gender) {
+      List<Book> books, String name, int age, String gender, List<String> favoriteGenres) {
     super(key, elements, threshold);
     this.idBooks = idBooks;
     this.books = books;
     this.name = name;
     this.age = age;
     this.gender = gender;
+    this.favoriteGenres = favoriteGenres;
   }
 
   public List<String> getIdBooks() {
@@ -48,6 +50,10 @@ public class UserDocument extends Document {
     return gender;
   }
 
+  public List<String> getFavoriteGenres() {
+    return favoriteGenres;
+  }
+
   /**
    * Builder for UserDocument.
    */
@@ -58,6 +64,7 @@ public class UserDocument extends Document {
     private String name;
     private int age;
     private String gender;
+    private List<String> favoriteGenres;
 
     public Builder(String id) {
       super(id);
@@ -88,6 +95,11 @@ public class UserDocument extends Document {
       return this;
     }
 
+    public Builder setFavoriteGenres(List<String> favoriteGenres) {
+      this.favoriteGenres = favoriteGenres;
+      return this;
+    }
+
     /**
      * <p>
      * Add an Element to the Document.
@@ -106,7 +118,7 @@ public class UserDocument extends Document {
      */
     public UserDocument createUserDocument() {
       UserDocument doc = new UserDocument(key, elements, threshold, idBooks,
-          books, name, age, gender);
+          books, name, age, gender, favoriteGenres);
       doc.getElements().stream().forEach(element -> element.setDocument(doc));
       return doc;
     }

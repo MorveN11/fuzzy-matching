@@ -1,10 +1,11 @@
-package fuzzy.project.model;
+package fuzzy.project;
 
 import fuzzy.matching.component.MatchService;
 import fuzzy.matching.domain.Document;
 import fuzzy.matching.domain.Match;
-import fuzzy.project.SimilarUser;
-import fuzzy.project.doc.UserDocument;
+import fuzzy.project.domain.UserDocument;
+import fuzzy.project.model.SimilarUser;
+import fuzzy.project.model.User;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

@@ -1,6 +1,4 @@
-package fuzzy.project;
-
-import fuzzy.project.model.User;
+package fuzzy.project.model;
 
 /**
  * SimilarUser class.

@@ -1,7 +1,7 @@
-package fuzzy.matching.similar;
+package fuzzy.project.similar;
 
+import fuzzy.project.CheckSimilar;
 import fuzzy.project.data.Data;
-import fuzzy.project.model.CheckSimilar;
 import fuzzy.project.model.User;
 import java.util.List;
 import org.junit.jupiter.api.Test;
